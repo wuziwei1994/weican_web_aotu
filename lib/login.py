@@ -19,3 +19,5 @@ def login():
     driver.find_element_by_xpath('//*[@id="app"]/div[1]/div[1]/div[2]/form/div[4]/div/input').send_keys('1')
     driver.find_element_by_xpath('//*[@id="app"]/div[1]/div[1]/div[2]/form/div[6]/div[1]/input').click()
 
+
+login()
