@@ -1,40 +1,56 @@
 # author:吴紫葳
-# times:2020/7/9 9:24
+# times:2020/7/16 11:20
 # # coding:-*- utf-8 -*-
 
-import time
 from selenium import webdriver
-
-driver = webdriver.Chrome(r'D:\weican_web_aotu\chromedriver.exe')
-
-# 门店相关信息
-merchant_id = '539848'
-account = 'wct'
-password = '123456'
-driver.get('http://b.local.weicantimes.com/login')
-driver.maximize_window()
-
-time.sleep(2)
-# 输入门店相关登录信息
-input = driver.find_elements_by_css_selector('input.login-input-full')
-for i in input:
-    if '请输入商家编号' in i.get_attribute('placeholder'):
-        i.send_keys(merchant_id)
-    elif '请输入账号' in i.get_attribute('placeholder'):
-        i.send_keys(account)
-    elif '请输入密码' in i.get_attribute('placeholder'):
-        i.send_keys(password)
-        break
-# 点击登录
-driver.find_element_by_css_selector('input.login-form-login').click()
-
-#循环点击title的每一个选项
-time.sleep(3)
-title = driver.find_elements_by_css_selector('div.navbar-contents a')
-for i in title:
-    time.sleep(1)
-    i.click()
+from time import sleep
 
 
-time.sleep(5)
-driver.quit()
+class LoginPage:
+    ''' 登录元素类 '''
+
+    def __init__(self):
+        '''初始化driver对象'''
+        self.driver = webdriver.Chrome(r'D:\weican_web_aotu\chromedriver.exe')
+        self.driver.get('http://b.local.weicantimes.com/login')
+        self.driver.maximize_window()
+        self.merchant_id = '539848'
+        self.account = 'wct'
+        self.password = '123456'
+        self.captcha = '123'
+
+    def loginBox(self):
+        ''' 获取登录所需元素 '''
+        loginBox = self.driver.find_elements_by_css_selector('input.login-input-full')
+        return loginBox
+
+    def captchaBox(self):
+        captchaBox = self.driver.find_element_by_css_selector('input.login-input-code')
+        return captchaBox
+
+    def loginButton(self):
+        ''' 获取登录按钮 '''
+        loginButton = self.driver.find_element_by_css_selector('input.login-form-login')
+        return loginButton
+
+
+class Login(LoginPage):
+    ''' 进行登录 '''
+
+    def login(self):
+        for one in self.loginBox():
+            if '请输入商家编号' in one.get_attribute('placeholder'):
+                one.send_keys(self.merchant_id)
+            elif '请输入账号' in one.get_attribute('placeholder'):
+                one.send_keys(self.account)
+            elif '请输入密码' in one.get_attribute('placeholder'):
+                one.send_keys(self.password)
+                break
+        self.captchaBox().send_keys(self.captcha)
+        self.loginButton().click()
+        sleep(5)
+        self.driver.quit()
+
+
+if __name__ == '__main__':
+    Login().login()
