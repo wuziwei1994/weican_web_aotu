@@ -25,6 +25,7 @@ class LoginPage:
         return loginBox
 
     def captchaBox(self):
+        ''' 获取验证码输入框元素 '''
         captchaBox = self.driver.find_element_by_css_selector('input.login-input-code')
         return captchaBox
 
@@ -33,11 +34,33 @@ class LoginPage:
         loginButton = self.driver.find_element_by_css_selector('input.login-form-login')
         return loginButton
 
+    def languageBox(self):
+        ''' 获取当前门店语言元素 '''
+        language = self.driver.find_element_by_css_selector('.login-main-langs-name.el-dropdown-selfdefine')
+        return language
+
+    def chooseLanguageBox(self):
+        ''' 获取当前门店所有语言元素'''
+        #第一个语言
+        chooseLanguage = self.driver.find_element_by_css_selector('ul >li:nth-child(1)')
+        return chooseLanguage
+
 
 class Login(LoginPage):
-    ''' 进行登录 '''
+    '''登录页面操作 '''
+
+    def chooseLanguage(self):
+        ''' 获取当前门店语言并逐一选择 '''
+        if self.languageBox():
+            self.languageBox().click()
+            sleep(2)
+            self.chooseLanguageBox().click()
+        else:
+            print('当前门店为单语言门店')
+        sleep(5)
 
     def login(self):
+        ''' 进行登录 '''
         for one in self.loginBox():
             if '请输入商家编号' in one.get_attribute('placeholder'):
                 one.send_keys(self.merchant_id)
@@ -53,4 +76,4 @@ class Login(LoginPage):
 
 
 if __name__ == '__main__':
-    Login().login()
+    Login().chooseLanguage()
