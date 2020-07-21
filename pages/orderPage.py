@@ -10,16 +10,21 @@ from config.settings import URL
 class OrderPage(BasePage):
     """订单页面类"""
 
-    def __init__(self, path='/order/shop/all'):
+    def __init__(self):
 
         super(OrderPage, self).__init__()
-        # 访问全部订单，拼接
-        self.path = URL + path
-        # 订单左侧元素列表
-        self.orderElement = (By.CSS_SELECTOR, 'li.left-nav-list-item-childs-item')
-
-    def to_page(self):
-        self.driver.get(self.path)
+        # 订单左侧全部订单
+        self.allOrderElement = (By.CSS_SELECTOR, 'a[href="/order/shop/all"]')
+        # 订单左侧未支付订单
+        self.noPayOrderElement = (By.CSS_SELECTOR, 'a[href="/order/shop/nopay"]')
+        # 订单左侧已支付订单
+        self.paidOrderElement = (By.CSS_SELECTOR, 'a[href="/order/shop/paied"]')
+        # 订单左侧退款订单
+        self.refundOrderElement = (By.CSS_SELECTOR, 'a[href="/order/shop/refund"]')
+        # 订单左侧反结账订单
+        self.recheckoutOrderElement = (By.CSS_SELECTOR, 'a[href="/order/shop/recheckout"]')
+        # 订单左侧已取消订单
+        self.cancelOrderElement = (By.CSS_SELECTOR, 'a[href="/order/shop/cancel"]')
 
     def get_order_box(self):
         return self.get_elements(self.orderElement)
