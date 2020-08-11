@@ -4,6 +4,7 @@
 
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from drivers.driver import Driver
 from config.settings import TIMEOUT, POLL_FREQUENCY
 
@@ -39,3 +40,16 @@ class BasePage:
             EC.visibility_of_element_located(locator))
         # 返回元素列表
         return self.driver.find_elements(*locator)
+
+    def click_locxy(self, x, y, left_click=True):
+        """
+
+        :param x: 网页的x坐标
+        :param y: 网页的Y坐标
+        :param left_click: True为鼠标左键点击，否则为右键点击
+        :return:
+        """
+        if left_click:
+            return ActionChains(self.driver).move_by_offset(x, y).click().perform()
+        else:
+            return ActionChains(self.driver).move_by_offset(x, y).context_click().perform()

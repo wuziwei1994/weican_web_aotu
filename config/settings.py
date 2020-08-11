@@ -8,7 +8,7 @@ DRIVERPATH = {'Chrome': r'D:\project_learn\chromedriver.exe',
               'Ie': r'D:\project_learn\IE.exe'
               }
 # 网址
-URL = 'http://b.local.weicantimes.com'
+HOST = 'http://b.local.weicantimes.com'
 # 超时时间
 TIMEOUT = 5
 # 轮询时间

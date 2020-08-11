@@ -4,16 +4,13 @@
 
 from selenium.webdriver.common.by import By
 from public.basePage import BasePage
-from config.settings import URL
 
 
 class HomePage(BasePage):
     """首页元素定位类"""
 
-    def __init__(self, path='/home'):
+    def __init__(self):
         super(HomePage, self).__init__()
-        # 访问首页，拼接
-        self.path = URL + path
         # 首页元素
         self.homeElement = (By.CSS_SELECTOR, 'a[href="/home"]')
         # 订单元素
@@ -26,10 +23,18 @@ class HomePage(BasePage):
         self.marketElement = (By.CSS_SELECTOR, 'a[href="/market"]')
         # 设置元素
         self.settingElement = (By.CSS_SELECTOR, 'a[href="/setting"]')
-
-    def to_page(self):
-        """访问home页面"""
-        self.driver.get(self.path)
+        # 首页-检查元素
+        self.homeCheckElement = (By.CSS_SELECTOR, '.home-main-body-block1-item .home-main-body-block1-item-span')
+        # 订单-全部订单元素
+        self.allOrderElement = (By.CSS_SELECTOR, '.left-nav-list-item-childs [aria-current="page"]')
+        # 报表-门店报表元素
+        self.storeReportElement = (By.CSS_SELECTOR, '.left-nav-list-item .left-nav-list-item-header')
+        # 会员-会员管理
+        self.userManageElement = (By.CSS_SELECTOR, '.left-nav-list-item-header')
+        # 营销-营销方案元素
+        self.marketPlanElement = (By.CSS_SELECTOR, '.left-nav-list-item span')
+        # 设置-门店设置
+        self.storeSettingsElement = (By.CSS_SELECTOR, '.left-nav-list-item-header')
 
     def get_home_box(self):
         """首页元素"""
@@ -47,13 +52,37 @@ class HomePage(BasePage):
         """营销元素"""
         return self.get_element(self.marketElement)
 
-    def get_userElement_box(self):
+    def get_user_box(self):
         """会员元素"""
         return self.get_element(self.userElement)
 
-    def get_settingElement_box(self):
+    def get_setting_box(self):
         """设置元素"""
         return self.get_element(self.settingElement)
+
+    def get_home_check_box(self):
+        """首页-检查断言元素"""
+        return self.get_element(self.homeCheckElement)
+
+    def get_all_order_box(self):
+        """订单-全部订单元素"""
+        return self.get_element(self.allOrderElement)
+
+    def get_store_report_box(self):
+        """报表-门店报表"""
+        return self.get_element(self.storeReportElement)
+
+    def get_user_manage_box(self):
+        """会员-会员管理"""
+        return self.get_element(self.userManageElement)
+
+    def get_market_plan_box(self):
+        """营销-营销方案"""
+        return self.get_element(self.marketPlanElement)
+
+    def get_store_settings(self):
+        """设置-门店设置"""
+        return self.get_element(self.storeSettingsElement)
 
 
 HomePage = HomePage()

@@ -3,7 +3,7 @@
 # coding:-*- utf-8 -*-
 
 from selenium import webdriver
-from config.settings import DRIVERPATH, URL, MERCHANT_ID, ACCOUNT, PASSWORD
+from config.settings import DRIVERPATH, HOST, MERCHANT_ID, ACCOUNT, PASSWORD
 from time import sleep
 
 
@@ -31,7 +31,7 @@ class Driver:
             # 浏览器最大化
             cls.driver.maximize_window()
             # 访问默认网址
-            cls.driver.get(URL)
+            cls.driver.get(HOST)
             # 强制等待1秒自动跳转页面
             sleep(1)
             # 执行登录
