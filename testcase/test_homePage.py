@@ -10,6 +10,16 @@ import pytest
 class TestHomePageCase:
     """测试首页类"""
 
+    def test_switch_store(self):
+        """测试门店切换"""
+        HomePage.get_store_name_box().click()
+        for one in HomePage.get_store_list_boxs():
+            if one.text == '多语言门店':
+                # 添加鼠标悬停
+                one.click()
+            else:
+                pass
+
     def test_title_home(self):
         """测试逐个点击首页标签"""
         time.sleep(2)

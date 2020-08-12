@@ -17,9 +17,6 @@ class HomePage(BasePage):
         self.storeListElements = (By.CSS_SELECTOR, '.top-shop-dialog-list')
         # 切换门店元素
         self.switchStoreElements = (By.CSS_SELECTOR, 'button.el-button--success')
-
-
-
         # 首页元素
         self.homeElement = (By.CSS_SELECTOR, 'a[href="/home"]')
         # 订单元素
@@ -44,6 +41,18 @@ class HomePage(BasePage):
         self.marketPlanElement = (By.CSS_SELECTOR, '.left-nav-list-item span')
         # 设置-门店设置
         self.storeSettingsElement = (By.CSS_SELECTOR, '.left-nav-list-item-header')
+
+    def get_store_name_box(self):
+        """顶部门店名称元素"""
+        return self.get_element(self.storeNameElement)
+
+    def get_store_list_boxs(self):
+        """门店列表元素"""
+        return self.get_elements(self.storeListElements)
+
+    def get_switch_storebox(self):
+        """切换门店(列表)元素"""
+        return self.get_elements(self.switchStoreElements)
 
     def get_home_box(self):
         """首页元素"""
