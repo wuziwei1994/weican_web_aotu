@@ -5,7 +5,6 @@
 from selenium.webdriver.common.by import By
 from public.basePage import BasePage
 from config.settings import HOST
-import time
 
 
 class OrderPage(BasePage):
@@ -67,9 +66,12 @@ class OrderPage(BasePage):
         self.resetButtonElement = (By.CSS_SELECTOR, '.order-filters-main-btns button.el-button--default')
         # 选择页数
         self.chooseTabElement = (By.CSS_SELECTOR, 'input[placeholder="请选择"]')
-        # 断言查询结果
-        self.assertSearchResult = (By.CSS_SELECTOR, 'a.el-button--text')
-
+        # 订单-全部订单-搜索出来结果中的详情元素
+        self.orderDetailElement = (By.CSS_SELECTOR, 'a.el-button--text')
+        # 订单-全部订单-搜索出来结果中的订单号
+        self.orderNumElement = (By.CSS_SELECTOR, '.el-table__row>.orderall-main-body-contents-table-td-number>.cell')
+        # 订单-全部订单-搜索出来结果中的餐桌号/取餐号
+        self.deskIdNum = (By.CSS_SELECTOR, '.el-table__row>.orderall-main-body-contents-table-tdcell>.cell')
 
     def to_all_order_page(self):
         """进入全部订单页面"""
@@ -113,6 +115,14 @@ class OrderPage(BasePage):
         """获取选择日期中的确认元素"""
         return self.get_element(self.chooseDataOkBottonElement)
 
+    def get_input_order_num_box(self):
+        """获取订单号输入框元素"""
+        return self.get_element(self.inputOrderNumElement)
+
+    def get_desk_id_box(self):
+        """获取餐桌号/取餐号输入框元素"""
+        return self.get_element(self.deskIdElement)
+
     def get_inquiry_button_box(self):
         """获取查询按钮元素"""
         return self.get_element(self.inquiryButtonElement)
@@ -121,9 +131,17 @@ class OrderPage(BasePage):
         """获取重置按钮元素"""
         return self.get_elements(self.resetButtonElement)
 
-    def assert_search_result(self):
-        """获取搜索结果断言元素"""
-        return self.get_element(self.assertSearchResult)
+    def get_order_detail_box(self):
+        """订单-全部订单-搜索出来结果中的详情元素"""
+        return self.get_element(self.orderDetailElement)
+
+    def get_order_num_box(self):
+        """订单-全部订单-搜索出来结果中的订单号元素"""
+        return self.get_element(self.orderNumElement)
+
+    def get_desk_id_num(self):
+        """订单-全部订单-搜索出来结果中的餐桌号/订单号元素"""
+        return self.get_element(self.deskIdNum)
 
 
 OrderPage = OrderPage()

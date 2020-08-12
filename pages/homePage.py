@@ -11,6 +11,15 @@ class HomePage(BasePage):
 
     def __init__(self):
         super(HomePage, self).__init__()
+        # 门店名称元素
+        self.storeNameElement = (By.CSS_SELECTOR, '.top-location')
+        # 门店列表元素
+        self.storeListElements = (By.CSS_SELECTOR, '.top-shop-dialog-list')
+        # 切换门店元素
+        self.switchStoreElements = (By.CSS_SELECTOR, 'button.el-button--success')
+
+
+
         # 首页元素
         self.homeElement = (By.CSS_SELECTOR, 'a[href="/home"]')
         # 订单元素
