@@ -3,6 +3,7 @@
 # # coding:-*- utf-8 -*-
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from public.basePage import BasePage
 
 
@@ -14,9 +15,9 @@ class HomePage(BasePage):
         # 门店名称元素
         self.storeNameElement = (By.CSS_SELECTOR, '.top-location')
         # 门店列表元素
-        self.storeListElements = (By.CSS_SELECTOR, '.top-shop-dialog-list')
+        self.storeListElements = (By.CSS_SELECTOR, '.top-shop-dialog-list-item-header-name')
         # 切换门店元素
-        self.switchStoreElements = (By.CSS_SELECTOR, 'button.el-button--success')
+        self.switchStoreElement = (By.CSS_SELECTOR, '.top-shop-dialog-list-item-left+div button')
         # 首页元素
         self.homeElement = (By.CSS_SELECTOR, 'a[href="/home"]')
         # 订单元素
@@ -50,9 +51,9 @@ class HomePage(BasePage):
         """门店列表元素"""
         return self.get_elements(self.storeListElements)
 
-    def get_switch_storebox(self):
+    def get_switch_store_box(self):
         """切换门店(列表)元素"""
-        return self.get_elements(self.switchStoreElements)
+        return self.get_element(self.switchStoreElement)
 
     def get_home_box(self):
         """首页元素"""
@@ -101,6 +102,9 @@ class HomePage(BasePage):
     def get_store_settings(self):
         """设置-门店设置"""
         return self.get_element(self.storeSettingsElement)
+
+    def get_hover(self, locator):
+        ActionChains(driver=self.driver).move_to_element(locator).perform()
 
 
 HomePage = HomePage()

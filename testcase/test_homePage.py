@@ -14,11 +14,20 @@ class TestHomePageCase:
         """测试门店切换"""
         HomePage.get_store_name_box().click()
         for one in HomePage.get_store_list_boxs():
-            if one.text == '多语言门店':
-                # 添加鼠标悬停
-                one.click()
-            else:
-                pass
+            if '多语言门店（中文）' == one.text:
+                HomePage.get_hover(one)
+                HomePage.get_switch_store_box().click()
+                break
+            assert '本月营业金额' in HomePage.get_home_check_box().text
+        time.sleep(1)
+        """切换回门店"""
+        HomePage.get_store_name_box().click()
+        for one in HomePage.get_store_list_boxs():
+            if '微餐时代体验餐厅' == one.text:
+                HomePage.get_hover(one)
+                HomePage.get_switch_store_box().click()
+                break
+            assert '本月营业金额' in HomePage.get_home_check_box().text
 
     def test_title_home(self):
         """测试逐个点击首页标签"""
